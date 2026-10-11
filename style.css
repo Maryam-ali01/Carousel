@@ -1,0 +1,257 @@
+:root {
+    --bg: #1d2140;
+    --bg-deep: #0c0f22;
+    --text: #f5f7ff;
+    --muted: #9ea8d4;
+    --accent: #d7deff;
+    --card-w: clamp(105px, 21vmin, 200px);
+    --card-h: calc(var(--card-w) * 1.6);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    overflow: hidden;
+    font-family: "Segoe UI", system-ui, -apple-system, Roboto, Helvetica, Arial, sans-serif;
+    color: var(--text);
+    background-color: var(--bg-deep);
+    background-image: radial-gradient(circle at 50% 38%, var(--bg), var(--bg-deep) 78%);
+}
+
+button {
+    font: inherit;
+    color: inherit;
+}
+
+.page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100dvh;
+    overflow: hidden;
+    padding: 0 16px 22px;
+}
+
+.scene {
+    flex: 1;
+    display: grid;
+    place-items: center;
+    width: 100%;
+    min-height: 0;
+    padding-bottom: 36px;
+    perspective: 1500px;
+    cursor: grab;
+    touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.scene.dragging {
+    cursor: grabbing;
+}
+
+.tilt {
+    transform-style: preserve-3d;
+    transform: rotateZ(-30deg) rotateX(-16deg);
+}
+
+.ring {
+    position: relative;
+    width: var(--card-w);
+    height: var(--card-h);
+    transform-style: preserve-3d;
+    transform: rotateY(var(--spin, 0deg));
+}
+
+.card {
+    position: absolute;
+    inset: 0;
+    border-radius: 26px;
+    transform: rotateY(var(--a)) translateZ(var(--radius, 300px));
+    box-shadow: 0 24px 50px rgba(0, 0, 0, 0.45);
+}
+
+.card img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 26px;
+    pointer-events: none;
+    filter: brightness(var(--shade, 1));
+}
+
+.caption {
+    min-height: 74px;
+    text-align: center;
+}
+
+.count {
+    margin: 0 0 4px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 3px;
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+}
+
+.title {
+    margin: 0;
+    font-size: 1.35rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.controls {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 14px;
+}
+
+.ctrl {
+    display: grid;
+    place-items: center;
+    width: 46px;
+    height: 46px;
+    padding: 0;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.12s;
+}
+
+.ctrl:hover {
+    background: rgba(255, 255, 255, 0.16);
+}
+
+.ctrl:active {
+    transform: scale(0.92);
+}
+
+.ctrl:focus-visible,
+.dot:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+}
+
+.ctrl svg {
+    width: 22px;
+    height: 22px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2.2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.mode {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    height: 46px;
+    padding: 0 18px 0 12px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 999px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.mode:hover {
+    background: rgba(255, 255, 255, 0.16);
+}
+
+.mode:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+}
+
+.track {
+    position: relative;
+    width: 40px;
+    height: 22px;
+    background: rgba(255, 255, 255, 0.22);
+    border-radius: 999px;
+    transition: background 0.25s;
+}
+
+.thumb {
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 16px;
+    height: 16px;
+    background: #ffffff;
+    border-radius: 50%;
+    transition: transform 0.25s;
+}
+
+.mode.on {
+    border-color: var(--accent);
+}
+
+.mode.on .track {
+    background: var(--accent);
+}
+
+.mode.on .thumb {
+    background: #12162e;
+    transform: translateX(18px);
+}
+
+.hint {
+    margin: 14px 0 0;
+    font-size: 0.82rem;
+    color: var(--muted);
+}
+
+.dots {
+    display: flex;
+    gap: 10px;
+    margin-top: 18px;
+}
+
+.dot {
+    width: 9px;
+    height: 9px;
+    padding: 0;
+    background: rgba(255, 255, 255, 0.28);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: width 0.25s, background 0.25s;
+}
+
+.dot.active {
+    width: 26px;
+    border-radius: 6px;
+    background: var(--accent);
+}
+
+@media (max-width: 520px) {
+    .title {
+        font-size: 1.2rem;
+    }
+
+    .dots {
+        gap: 8px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        transition-duration: 0.01s !important;
+    }
+}

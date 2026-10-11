@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Moon Carousel</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <main class="page">
+            <div class="scene" id="scene" role="region" aria-roledescription="carousel" aria-label="Moon phases">
+                <div class="tilt">
+                    <div class="ring" id="ring"></div>
+                </div>
+            </div>
+
+            <div class="caption" aria-live="polite">
+                <p class="count" id="count">01 / 07</p>
+                <h1 class="title" id="title">Black Hole</h1>
+            </div>
+
+            <div class="controls">
+                <button class="ctrl" id="prev" type="button" aria-label="Previous picture">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M15 5l-7 7 7 7" />
+                    </svg>
+                </button>
+
+                <button class="mode" id="mode" type="button" role="switch" aria-checked="false">
+                    <span class="track">
+                        <span class="thumb"></span>
+                    </span>
+                    <span class="mode-text">Auto rotate</span>
+                </button>
+
+                <button class="ctrl" id="next" type="button" aria-label="Next picture">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M9 5l7 7-7 7" />
+                    </svg>
+                </button>
+            </div>
+
+            <div class="dots" id="dots" role="tablist" aria-label="Choose a picture"></div>
+
+            <p class="hint">Drag with the mouse or scroll to rotate</p>
+        </main>
+
+        <script src="script.js"></script>
+    </body>
+</html>
